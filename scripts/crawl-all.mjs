@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import sharp from 'sharp';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 
 const ROOT = process.cwd();
 const DATA_DIR = path.join(ROOT, 'data');
@@ -45,6 +45,10 @@ function env(name, required = true) {
 }
 
 const R2_ENABLED = Boolean(process.env.R2_ENDPOINT && process.env.R2_ACCESS_KEY_ID && process.env.R2_SECRET_ACCESS_KEY && process.env.R2_BUCKET && process.env.R2_PUBLIC_BASE_URL);
+const R2_STATE_PREFIX = (process.env.R2_STATE_PREFIX || 'state').replace(/^\/+|\/+$/g, '');
+const R2_LIBRARY_KEY = `${R2_STATE_PREFIX}/library.json`;
+const R2_CHECKPOINT_KEY = `${R2_STATE_PREFIX}/crawl-checkpoint.json`;
+
 let r2 = null;
 if (R2_ENABLED) {
   r2 = new S3Client({
@@ -66,12 +70,82 @@ async function ensureDirectories() {
 async function readJson(file, fallback) {
   try { return JSON.parse(await fs.readFile(file, 'utf8')); } catch { return fallback; }
 }
+
 async function writeJson(file, value) {
   await fs.mkdir(path.dirname(file), { recursive: true });
   await fs.writeFile(file, JSON.stringify(value, null, 2) + '\n', 'utf8');
 }
-async function readLibrary() { return await readJson(LIBRARY_FILE, []); }
-async function writeLibrary(items) { await writeJson(LIBRARY_FILE, items); }
+
+async function bodyToText(body) {
+  if (!body) return '';
+  if (typeof body.transformTo === 'function') return await body.transformTo('string');
+
+  const chunks = [];
+  for await (const chunk of body) chunks.push(Buffer.from(chunk));
+  return Buffer.concat(chunks).toString('utf8');
+}
+
+async function readR2Json(key, fallback) {
+  if (!R2_ENABLED || !r2) return fallback;
+
+  try {
+    const response = await r2.send(new GetObjectCommand({
+      Bucket: env('R2_BUCKET'),
+      Key: key,
+    }));
+
+    const text = await bodyToText(response.Body);
+    if (!text) return fallback;
+
+    return JSON.parse(text);
+  } catch (error) {
+    if (error?.name === 'NoSuchKey' || error?.$metadata?.httpStatusCode === 404) {
+      return fallback;
+    }
+    throw error;
+  }
+}
+
+async function writeR2Json(key, value) {
+  if (!R2_ENABLED || !r2) return;
+
+  await r2.send(new PutObjectCommand({
+    Bucket: env('R2_BUCKET'),
+    Key: key,
+    Body: JSON.stringify(value, null, 2) + '\n',
+    ContentType: 'application/json; charset=utf-8',
+    CacheControl: 'no-cache',
+  }));
+}
+
+async function deleteR2Object(key) {
+  if (!R2_ENABLED || !r2) return;
+
+  try {
+    await r2.send(new DeleteObjectCommand({
+      Bucket: env('R2_BUCKET'),
+      Key: key,
+    }));
+  } catch {}
+}
+
+async function readLibrary() {
+  if (R2_ENABLED) {
+    const library = await readR2Json(R2_LIBRARY_KEY, []);
+    await writeJson(LIBRARY_FILE, library);
+    return library;
+  }
+
+  return await readJson(LIBRARY_FILE, []);
+}
+
+async function writeLibrary(items) {
+  await writeJson(LIBRARY_FILE, items);
+
+  if (R2_ENABLED) {
+    await writeR2Json(R2_LIBRARY_KEY, items);
+  }
+}
 
 function inferMember(query) {
   return MEMBERS.find((member) => new RegExp(`\\b${member}\\b`, 'i').test(query)) || (/\bOT8\b|BINI members|^BINI$/.test(query) ? 'OT8' : '');
@@ -241,8 +315,23 @@ async function uploadToR2(key, buffer) {
   }));
 }
 
-async function saveCheckpoint(value) { await writeJson(CHECKPOINT_FILE, value); }
-async function loadCheckpoint() { return await readJson(CHECKPOINT_FILE, null); }
+async function saveCheckpoint(value) {
+  await writeJson(CHECKPOINT_FILE, value);
+
+  if (R2_ENABLED) {
+    await writeR2Json(R2_CHECKPOINT_KEY, value);
+  }
+}
+
+async function loadCheckpoint() {
+  if (R2_ENABLED) {
+    const checkpoint = await readR2Json(R2_CHECKPOINT_KEY, null);
+    if (checkpoint) await writeJson(CHECKPOINT_FILE, checkpoint);
+    return checkpoint;
+  }
+
+  return await readJson(CHECKPOINT_FILE, null);
+}
 
 async function processImage(item, query, library, knownHashes) {
   try {
@@ -313,12 +402,19 @@ process.on('SIGTERM', () => { interrupted = true; console.log('\nTermination req
 async function main() {
   await ensureDirectories();
   const queries = buildQueries();
-  const queue = MAX_QUERIES > 0 ? queries.slice(0, MAX_QUERIES) : queries;
-  const signature = sha256(Buffer.from(queue.join('\n')));
+  const signature = sha256(Buffer.from(queries.join('\n')));
   const previous = await loadCheckpoint();
+
   let startIndex = 0;
-  if (previous?.signature === signature && Number.isInteger(previous.nextQueryIndex)) startIndex = Math.min(previous.nextQueryIndex, queue.length);
+  if (previous?.signature === signature && Number.isInteger(previous.nextQueryIndex)) {
+    startIndex = Math.min(previous.nextQueryIndex, queries.length);
+  }
+
   if (process.env.CRAWL_RESET === '1') startIndex = 0;
+
+  const batchSize = MAX_QUERIES > 0 ? MAX_QUERIES : queries.length;
+  const endIndex = Math.min(startIndex + batchSize, queries.length);
+  const queue = queries;
 
   const library = await readLibrary();
   const knownHashes = new Set(library.map((item) => item?.sha256).filter(Boolean));
@@ -326,7 +422,8 @@ async function main() {
   console.log(' BINI ARCHIVE V2 · R2 + CHECKPOINT CRAWLER');
   console.log('========================================');
   console.log(`Generated queries : ${queue.length}`);
-  console.log(`Resume index      : ${startIndex}`);
+  console.log(`Batch size        : ${batchSize}`);
+  console.log(`Batch range       : ${startIndex}..${Math.max(startIndex, endIndex - 1)}`);
   console.log(`Storage           : ${R2_ENABLED ? 'Cloudflare R2' : 'local fallback'}`);
   console.log(`Keep local copy   : ${KEEP_LOCAL}`);
 
@@ -336,7 +433,7 @@ async function main() {
   let discoveredCount = 0, addedCount = 0, duplicateCount = 0, failedCount = 0;
 
   try {
-    for (let i = startIndex; i < queue.length; i++) {
+    for (let i = startIndex; i < endIndex; i++) {
       const query = queue[i];
       const results = await crawlQuery(page, query);
       discoveredCount += results.length;
@@ -347,7 +444,16 @@ async function main() {
         else failedCount++;
       }
       await writeLibrary(library);
-      await saveCheckpoint({ version: 2, updatedAt: new Date().toISOString(), signature, nextQueryIndex: i + 1, totalQueries: queue.length, lastQuery: query, libraryTotal: library.length });
+      await saveCheckpoint({
+        version: 2,
+        updatedAt: new Date().toISOString(),
+        signature,
+        nextQueryIndex: i + 1,
+        totalQueries: queue.length,
+        batchSize,
+        lastQuery: query,
+        libraryTotal: library.length,
+      });
       console.log(`PROGRESS ${i + 1}/${queue.length} · library ${library.length} · added ${addedCount} · dupes ${duplicateCount} · failed ${failedCount}`);
       if (interrupted) break;
       if (QUERY_DELAY > 0) await sleep(QUERY_DELAY);
@@ -358,11 +464,13 @@ async function main() {
   }
 
   const checkpoint = await loadCheckpoint();
-  if (!interrupted && checkpoint?.nextQueryIndex >= queue.length) {
+
+  if (!interrupted && endIndex >= queue.length) {
     await fs.rm(CHECKPOINT_FILE, { force: true });
-    console.log('CRAWL COMPLETE — checkpoint cleared.');
+    await deleteR2Object(R2_CHECKPOINT_KEY);
+    console.log('CRAWL COMPLETE — all queries processed; checkpoint cleared.');
   } else {
-    console.log(`CRAWL PAUSED — resume at query index ${checkpoint?.nextQueryIndex ?? startIndex}.`);
+    console.log(`BATCH COMPLETE — next query index ${checkpoint?.nextQueryIndex ?? endIndex}.`);
   }
   console.log(`Discovered : ${discoveredCount}`);
   console.log(`Added      : ${addedCount}`);
