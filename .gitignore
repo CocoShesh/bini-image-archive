@@ -1,0 +1,9 @@
+node_modules/
+.next/
+.env
+.env.local
+
+public/library/
+data/r2-migration-checkpoint.jsonnode_modules
+.next
+.DS_Store
