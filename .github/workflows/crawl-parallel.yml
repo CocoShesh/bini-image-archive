@@ -65,7 +65,8 @@ jobs:
   merge:
     name: Merge workers
     runs-on: ubuntu-latest
-    needs: crawl
+    needs: [prepare, crawl]
+    if: ${{ always() && needs.prepare.result == 'success' }}
     env:
       CRAWL_WORKER_COUNT: 5
     steps:
