@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<defs>
+  <linearGradient id="p" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#fff7ef"/>
+    <stop offset=".32" stop-color="#ff9ab7"/>
+    <stop offset=".72" stop-color="#ef4779"/>
+    <stop offset="1" stop-color="#b51f55"/>
+  </linearGradient>
+  <linearGradient id="i" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#ffd8e3"/>
+    <stop offset=".5" stop-color="#ff6d98"/>
+    <stop offset="1" stop-color="#c92a5f"/>
+  </linearGradient>
+  <radialGradient id="c">
+    <stop offset="0" stop-color="#fffdf3"/>
+    <stop offset=".65" stop-color="#ffe5c7"/>
+    <stop offset="1" stop-color="#f6b8aa"/>
+  </radialGradient>
+  <filter id="s" x="-30%" y="-30%" width="160%" height="160%">
+    <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#5f1737" flood-opacity=".32"/>
+  </filter>
+  <path id="petal" d="M64 9C55 20 49 31 49 43C49 51 55 56 64 61C73 56 79 51 79 43C79 31 73 20 64 9Z"/>
+  <path id="inner" d="M64 18C58 26 55 34 55 42C55 47 59 51 64 54C69 51 73 47 73 42C73 34 70 26 64 18Z"/>
+</defs>
+
+<g filter="url(#s)">
+  <use href="#petal" fill="url(#p)"/><use href="#inner" fill="url(#i)"/>
+  <g transform="rotate(45 64 64)"><use href="#petal" fill="url(#p)"/><use href="#inner" fill="url(#i)"/></g>
+  <g transform="rotate(90 64 64)"><use href="#petal" fill="url(#p)"/><use href="#inner" fill="url(#i)"/></g>
+  <g transform="rotate(135 64 64)"><use href="#petal" fill="url(#p)"/><use href="#inner" fill="url(#i)"/></g>
+  <g transform="rotate(180 64 64)"><use href="#petal" fill="url(#p)"/><use href="#inner" fill="url(#i)"/></g>
+  <g transform="rotate(225 64 64)"><use href="#petal" fill="url(#p)"/><use href="#inner" fill="url(#i)"/></g>
+  <g transform="rotate(270 64 64)"><use href="#petal" fill="url(#p)"/><use href="#inner" fill="url(#i)"/></g>
+  <g transform="rotate(315 64 64)"><use href="#petal" fill="url(#p)"/><use href="#inner" fill="url(#i)"/></g>
+
+  <path d="M64 44L76 52L84 64L76 76L64 84L52 76L44 64L52 52Z" fill="url(#c)"/>
+  <path d="M64 50L69 59L78 64L69 69L64 78L59 69L50 64L59 59Z" fill="#fffdf6" opacity=".9"/>
+</g>
+</svg>

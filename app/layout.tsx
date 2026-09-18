@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: { default: 'BINI Image Archive', template: '%s · BINI Image Archive' },
   description: 'A searchable, progressively loaded public image archive for BINI.',
   applicationName: 'BINI Image Archive',
+  icons: {
+    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+  },
   alternates: { canonical: '/' },
   openGraph: {
     title: 'BINI Image Archive',

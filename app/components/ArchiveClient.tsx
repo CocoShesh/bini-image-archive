@@ -295,7 +295,7 @@ export default function ArchiveClient() {
       <div className="ambient ambient-b" />
 
       <nav className="topbar">
-        <a className="brand" href="#top" aria-label="BINI Archive home"><span className="brand-mark">B</span><span><strong>BINI</strong> ARCHIVE</span></a>
+        <a className="brand" href="#top" aria-label="BINI Archive home"><span className="brand-mark"><img src="/icon.svg" alt="" aria-hidden="true" /></span><span><strong>BINI</strong> ARCHIVE</span></a>
         <div className="top-actions"><a className="ghost-btn" href="#members">Members</a><button className={`ghost-btn ${favoritesOnly ? 'ghost-active' : ''}`} onClick={openFavoritesView}>♡ Favorites {favorites.length ? `(${favorites.length})` : ''}</button><a className="ghost-btn" href="#gallery">Gallery</a></div>
       </nav>
 
