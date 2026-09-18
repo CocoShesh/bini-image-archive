@@ -201,6 +201,27 @@ export default function ArchiveClient() {
     return () => window.removeEventListener('keydown', onKey);
   }, [navigate, selected]);
 
+  function scrollToGallery() {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const gallery = document.getElementById('gallery');
+        if (!gallery) return;
+        const top = gallery.getBoundingClientRect().top + window.scrollY - 12;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+    });
+  }
+
+  function selectMember(member: string) {
+    setActiveMember(member);
+    scrollToGallery();
+  }
+
+  function selectAllMembers() {
+    setActiveMember('All');
+    scrollToGallery();
+  }
+
   function toggleFavorite(id: string) {
     setFavorites((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
   }
@@ -290,11 +311,27 @@ export default function ArchiveClient() {
       </section>
 
       <section className={styles.memberSection} id="members">
-        <div className={styles.memberHead}><div><div className="section-kicker">DISCOVER</div><h2>Browse by member</h2></div><p>Curated preview picks · refreshed weekly</p></div>
+        <div className={styles.memberHead}>
+          <div>
+            <div className="section-kicker">DISCOVER</div>
+            <h2>Browse by member</h2>
+          </div>
+          <div className={styles.memberHeadAside}>
+            <p>Curated preview picks · refreshed weekly</p>
+            <button
+              type="button"
+              className={styles.memberAll}
+              onClick={selectAllMembers}
+              aria-pressed={activeMember === 'All'}
+            >
+              All archive
+            </button>
+          </div>
+        </div>
         <div className={styles.memberGrid}>
           {MEMBERS.map((member) => {
             const url = memberPreviews[member];
-            return <button key={member} className={styles.memberCard} onClick={() => setActiveMember(member)} aria-pressed={activeMember === member}>
+            return <button key={member} className={styles.memberCard} onClick={() => selectMember(member)} aria-pressed={activeMember === member}>
               {url ? <img src={url} alt={`${member} archive preview`} loading="lazy" decoding="async" /> : <div className={styles.memberFallback}>No preview yet</div>}
               <span className={styles.memberShade} /><span className={styles.memberLabel}><strong>{member}</strong><small>{member === 'OT8' ? 'group' : 'member'}</small></span>
             </button>;
@@ -303,7 +340,7 @@ export default function ArchiveClient() {
       </section>
 
       <section className="toolbar" id="collections">
-        <div className="toolbar-left"><div className="filter-row"><button className={`filter-pill ${activeMember === 'All' ? 'active' : ''}`} onClick={() => setActiveMember('All')}>All</button>{MEMBERS.map((filter) => <button key={filter} className={`filter-pill ${activeMember === filter ? 'active' : ''}`} onClick={() => setActiveMember(filter)}>{filter}</button>)}</div><div className="filter-extra-row"><div className="year-select-wrap"><span>Year</span><select className="year-select" value={activeYear} onChange={(e) => setActiveYear(e.target.value)}><option value="All">All years</option>{years.map((year) => <option key={year} value={year}>{year}</option>)}</select></div><button className={`sort-btn ${favoritesOnly ? 'sort-active' : ''}`} onClick={openFavoritesView}>♡ Favorites</button></div></div>
+        <div className="toolbar-left"><div className="filter-extra-row"><div className="year-select-wrap"><span>Year</span><select className="year-select" value={activeYear} onChange={(e) => setActiveYear(e.target.value)}><option value="All">All years</option>{years.map((year) => <option key={year} value={year}>{year}</option>)}</select></div><button className={`sort-btn ${favoritesOnly ? 'sort-active' : ''}`} onClick={openFavoritesView}>♡ Favorites</button></div></div>
         <div className="sort-wrap"><span>{total.toLocaleString()} matches · {images.length.toLocaleString()} loaded</span><button className="sort-btn" onClick={() => setSort((value) => value === 'newest' ? 'oldest' : 'newest')}>{sort === 'newest' ? 'Newest first' : 'Oldest first'} <span>↕</span></button></div>
       </section>
 

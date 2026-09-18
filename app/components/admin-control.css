@@ -149,3 +149,978 @@ body::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#4a4a4a,#2
 .ac-palette-list{padding:8px}.ac-palette-list button,.ac-palette-list a{width:100%;display:flex;align-items:center;justify-content:space-between;gap:15px;border:0;background:transparent;color:#d9d3ca;padding:11px 12px;border-radius:9px;text-decoration:none;cursor:pointer;text-align:left;font-size:10px}.ac-palette-list button:hover,.ac-palette-list a:hover{background:#151515}.ac-palette-list kbd{font:inherit;color:#5f5a53;border:1px solid #262626;background:#101010;border-radius:6px;padding:3px 6px}
 @media(max-width:900px){.ac-alert-strip{grid-template-columns:1fr}.ac-snapshot-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){.ac-snapshot-grid{grid-template-columns:1fr}.ac-command-trigger span{display:none}}
+
+/* =========================================================
+   ADMIN RESPONSIVE V25 — FINAL POLISH
+   ========================================================= */
+
+/* Large laptop / smaller desktop */
+@media (max-width: 1280px) {
+  .ac-main {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .ac-shell {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+
+  .ac-hero {
+    grid-template-columns: minmax(0, 1fr) 260px;
+  }
+
+  .ac-review-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, .8fr);
+  }
+}
+
+/* Tablet landscape */
+@media (max-width: 1050px) {
+  .ac-topbar {
+    padding: 0 18px;
+  }
+
+  .ac-shell {
+    grid-template-columns: 190px minmax(0, 1fr);
+  }
+
+  .ac-main {
+    padding: 24px 20px 55px;
+  }
+
+  .ac-sidebar {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .ac-sidebar button,
+  .ac-side-link {
+    padding: 9px 8px;
+  }
+
+  .ac-nav-copy em {
+    display: none;
+  }
+
+  .ac-pagehead h1 {
+    font-size: 32px;
+  }
+
+  .ac-hero,
+  .ac-detail-hero,
+  .ac-review-hero,
+  .ac-storage-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-hero-stats,
+  .ac-detail-side {
+    border-left: 0;
+    border-top: 1px solid #222;
+    padding: 15px 0 0;
+    margin-top: 4px;
+  }
+
+  .ac-grid-2,
+  .ac-review-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-review-actions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ac-worker-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-settings-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablet portrait */
+@media (max-width: 820px) {
+  .ac-topbar {
+    min-height: 62px;
+    height: auto;
+    padding: 10px 14px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .ac-brand {
+    min-width: 0;
+  }
+
+  .ac-top-actions {
+    min-width: 0;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ac-top-actions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ac-top-actions button,
+  .ac-top-actions a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .ac-shell {
+    display: block;
+    min-height: 0;
+  }
+
+  .ac-sidebar {
+    position: sticky;
+    top: 62px;
+    z-index: 35;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 8px 10px;
+    border-right: 0;
+    border-bottom: 1px solid #202020;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ac-sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ac-side-label,
+  .ac-side-spacer,
+  .ac-side-link {
+    display: none;
+  }
+
+  .ac-sidebar button {
+    min-width: max-content;
+    flex: 0 0 auto;
+    display: inline-flex;
+    padding: 8px 11px;
+    border-radius: 999px;
+    gap: 6px;
+  }
+
+  .ac-nav-icon {
+    width: auto;
+    font-size: 12px;
+  }
+
+  .ac-nav-copy {
+    display: block;
+  }
+
+  .ac-nav-copy b {
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  .ac-main {
+    padding: 20px 14px 45px;
+  }
+
+  .ac-pagehead {
+    margin-bottom: 14px;
+  }
+
+  .ac-head-right {
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .ac-card {
+    border-radius: 15px;
+    padding: 16px;
+  }
+
+  .ac-hero {
+    padding: 18px;
+  }
+
+  .ac-hero-title {
+    align-items: flex-start;
+  }
+
+  .ac-hero-title h2 {
+    font-size: 25px;
+  }
+
+  .ac-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ac-health-grid,
+  .ac-settings-grid,
+  .ac-snapshot-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ac-review-actions-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ac-queue-health {
+    align-items: center;
+  }
+
+  .ac-activity-topbar {
+    display: block;
+  }
+
+  .ac-activity-topstats {
+    justify-content: flex-start;
+    margin-top: 12px;
+  }
+
+  .ac-activity-filterbar {
+    display: block;
+  }
+
+  .ac-activity-live-wrap {
+    justify-content: flex-start;
+    margin-top: 10px;
+  }
+
+  .ac-activity-stream {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-activity-card {
+    height: auto;
+    min-height: 0;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .ac-topbar {
+    padding: 9px 10px;
+  }
+
+  .ac-brand {
+    width: 100%;
+    font-size: 10px;
+  }
+
+  .ac-top-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .ac-top-actions button,
+  .ac-top-actions a {
+    padding: 8px 10px;
+    font-size: 10px;
+  }
+
+  .ac-top-actions .ac-command-trigger span,
+  .ac-system-chip {
+    display: none;
+  }
+
+  .ac-sidebar {
+    top: 58px;
+  }
+
+  .ac-main {
+    padding: 16px 10px 34px;
+  }
+
+  .ac-pagehead h1 {
+    font-size: 26px;
+  }
+
+  .ac-pagehead p {
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  .ac-head-right {
+    gap: 6px;
+  }
+
+  .ac-head-right span {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ac-card {
+    padding: 14px;
+    border-radius: 13px;
+  }
+
+  .ac-hero {
+    padding: 16px;
+  }
+
+  .ac-hero-title {
+    display: block;
+  }
+
+  .ac-hero-title h2 {
+    font-size: 23px;
+  }
+
+  .ac-hero-title .ac-badge {
+    display: inline-flex;
+    margin-top: 8px;
+  }
+
+  .ac-hero-copy p,
+  .ac-detail-hero p,
+  .ac-sub {
+    font-size: 10px;
+    line-height: 1.65;
+  }
+
+  .ac-hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .ac-hero-actions button,
+  .ac-hero-actions a {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .ac-hero-stats,
+  .ac-detail-side {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .ac-metrics {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .ac-metric {
+    min-height: 110px;
+    padding: 13px;
+  }
+
+  .ac-metric strong {
+    font-size: 25px;
+  }
+
+  .ac-health-grid,
+  .ac-settings-grid,
+  .ac-snapshot-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-worker-label {
+    flex-wrap: wrap;
+  }
+
+  .ac-worker-meta,
+  .ac-stat-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-worker-meta {
+    display: grid;
+  }
+
+  .ac-stat-strip {
+    display: grid;
+  }
+
+  .ac-stat-strip span {
+    min-width: 0;
+  }
+
+  .ac-donut-wrap {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ac-donut {
+    width: 140px;
+    height: 140px;
+  }
+
+  .ac-review-hero-title {
+    display: block;
+  }
+
+  .ac-review-hero-title h2,
+  .ac-storage-hero h2 {
+    font-size: 24px;
+  }
+
+  .ac-review-hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .ac-review-hero-actions .ac-quick,
+  .ac-review-hero-actions a {
+    width: 100%;
+  }
+
+  .ac-review-hero-number {
+    min-height: 120px;
+    padding: 16px;
+  }
+
+  .ac-review-hero-number strong {
+    font-size: 42px;
+  }
+
+  .ac-review-actions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-queue-health {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ac-queue-ring {
+    width: 142px;
+    height: 142px;
+  }
+
+  .ac-queue-bars {
+    width: 100%;
+  }
+
+  .ac-data-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .ac-activity-topstats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+  }
+
+  .ac-activity-topstats > div {
+    min-width: 0;
+  }
+
+  .ac-activity-topstats strong {
+    font-size: 11px;
+  }
+
+  .ac-activity-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 3px;
+  }
+
+  .ac-activity-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ac-activity-filters button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .ac-activity-row {
+    display: grid;
+    gap: 4px;
+  }
+
+  .ac-activity-row time {
+    white-space: normal;
+  }
+
+  .ac-storage-state {
+    min-height: 120px;
+  }
+
+  .ac-storage-metrics .ac-metric {
+    min-height: 118px;
+  }
+
+  .ac-palette-backdrop {
+    padding: 12px;
+    padding-top: 72px;
+  }
+
+  .ac-palette {
+    width: 100%;
+    max-height: calc(100vh - 90px);
+    overflow: auto;
+  }
+
+  .ac-login {
+    padding: 14px;
+  }
+
+  .ac-login-card {
+    width: 100%;
+    padding: 22px;
+    border-radius: 15px;
+  }
+
+  .ac-login-card h1 {
+    font-size: 26px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 390px) {
+  .ac-main {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .ac-topbar {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .ac-sidebar {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+
+  .ac-sidebar button {
+    padding: 7px 10px;
+  }
+
+  .ac-nav-copy b {
+    font-size: 9px;
+  }
+
+  .ac-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-hero-stats,
+  .ac-detail-side {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-activity-topstats {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-pagehead h1 {
+    font-size: 23px;
+  }
+
+  .ac-card {
+    padding: 12px;
+  }
+
+  .ac-hero {
+    padding: 14px;
+  }
+}
+
+/* Touch / accessibility */
+@media (hover: none) {
+  .ac-card:hover,
+  .ac-activity-card:hover,
+  .ac-activity-item:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .ac-sidebar button,
+  .ac-top-actions button,
+  .ac-top-actions a,
+  .ac-quick,
+  .ac-primary,
+  .ac-panel-head button {
+    min-height: 42px;
+  }
+}
+
+
+/* =========================================================
+   ADMIN MOBILE NAV V1
+   Same interaction model as the public mobile navbar.
+   ========================================================= */
+
+.ac-mobile-nav{
+  display:none;
+}
+
+@media(max-width:600px){
+
+  /* clean mobile header */
+  .ac-topbar{
+    position:sticky;
+    top:0;
+    z-index:60;
+    min-height:54px;
+    height:54px;
+    padding:8px 10px;
+    background:rgba(7,7,7,.90);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+  }
+
+  .ac-brand{
+    min-width:0;
+    font-size:10px;
+    letter-spacing:.08em;
+  }
+
+  .ac-brand a{
+    color:#8e8a83;
+  }
+
+  .ac-top-actions{
+    width:auto;
+    flex:0 0 auto;
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+  }
+
+  /* Keep only LOCK in the mobile top bar. */
+  .ac-top-actions > *{
+    display:none !important;
+  }
+
+  .ac-top-actions > button:last-child{
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
+    min-height:36px;
+    min-width:50px;
+    padding:7px 10px;
+    border-radius:10px;
+    background:#101010;
+    border:1px solid #2a2a2a;
+    color:#ddd8d0;
+    font-size:10px;
+  }
+
+  /* sidebar is replaced by the floating nav */
+  .ac-sidebar{
+    display:none !important;
+  }
+
+  .ac-shell{
+    display:block !important;
+    min-height:0 !important;
+  }
+
+  .ac-main{
+    width:100%;
+    padding:
+      16px
+      10px
+      calc(94px + env(safe-area-inset-bottom));
+  }
+
+  /* floating nav */
+  .ac-mobile-nav{
+    position:fixed;
+    left:12px;
+    right:12px;
+    bottom:calc(10px + env(safe-area-inset-bottom));
+    z-index:100;
+
+    display:grid;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    align-items:stretch;
+
+    min-height:62px;
+    padding:5px;
+
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:20px;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(24,25,29,.96),
+        rgba(10,11,14,.97)
+      );
+
+    box-shadow:
+      0 20px 60px rgba(0,0,0,.52),
+      0 5px 18px rgba(0,0,0,.30);
+
+    backdrop-filter:blur(22px) saturate(1.12);
+    -webkit-backdrop-filter:blur(22px) saturate(1.12);
+  }
+
+  .ac-mobile-nav-item{
+    min-width:0;
+    min-height:52px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+
+    border:0;
+    border-radius:14px;
+
+    background:transparent;
+    color:#878c96;
+
+    font-size:8px;
+    font-weight:700;
+    line-height:1.05;
+
+    padding:4px 3px;
+
+    transition:
+      background .18s ease,
+      color .18s ease,
+      transform .18s ease;
+  }
+
+  .ac-mobile-nav-item:active{
+    transform:scale(.96);
+  }
+
+  .ac-mobile-nav-item.active{
+    color:#fff;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255,255,255,.11),
+        rgba(196,172,139,.08)
+      );
+
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,.07),
+      0 5px 18px rgba(0,0,0,.18);
+  }
+
+  .ac-mobile-nav-icon{
+    display:grid;
+    place-items:center;
+
+    width:23px;
+    height:23px;
+
+    font-size:16px;
+    line-height:1;
+    font-weight:500;
+  }
+
+  .ac-mobile-nav-item.active .ac-mobile-nav-icon{
+    color:#f3e9dc;
+  }
+
+  /* make cards breathe above the nav */
+  .ac-pagehead{
+    margin-top:2px;
+  }
+
+  /* avoid sticky UI clipping */
+  .ac-app{
+    min-height:100dvh;
+    overflow-x:hidden;
+    padding-bottom:0;
+  }
+}
+
+@media(max-width:390px){
+
+  .ac-mobile-nav{
+    left:8px;
+    right:8px;
+    bottom:calc(7px + env(safe-area-inset-bottom));
+    min-height:58px;
+    border-radius:18px;
+  }
+
+  .ac-mobile-nav-item{
+    min-height:48px;
+    border-radius:12px;
+    font-size:7px;
+  }
+
+  .ac-mobile-nav-icon{
+    width:20px;
+    height:20px;
+    font-size:15px;
+  }
+
+  .ac-main{
+    padding-left:8px;
+    padding-right:8px;
+    padding-bottom:calc(90px + env(safe-area-inset-bottom));
+  }
+}
+
+@media(hover:none){
+
+  .ac-mobile-nav-item{
+    min-height:48px;
+  }
+}
+
+
+/* =========================================================
+   REVIEW CTA — POLISHED ACTION BUTTON
+   ========================================================= */
+
+.ac-review-hero-actions .ac-action-primary{
+  min-height:42px;
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+
+  padding:10px 14px !important;
+
+  border:1px solid rgba(255,255,255,.14) !important;
+  border-radius:11px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.10),
+      rgba(255,255,255,.045)
+    ) !important;
+
+  color:#f3eee6 !important;
+  text-decoration:none !important;
+
+  font-size:10px !important;
+  font-weight:700 !important;
+  letter-spacing:.01em;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05),
+    0 6px 18px rgba(0,0,0,.18);
+
+  transition:
+    background .18s ease,
+    border-color .18s ease,
+    transform .18s ease,
+    box-shadow .18s ease;
+}
+
+.ac-review-hero-actions .ac-action-primary:hover{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.15),
+      rgba(255,255,255,.065)
+    ) !important;
+
+  border-color:rgba(255,255,255,.23) !important;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    0 10px 24px rgba(0,0,0,.24);
+
+  transform:translateY(-1px);
+}
+
+.ac-review-hero-actions .ac-action-primary:active{
+  transform:translateY(0) scale(.985);
+}
+
+@media(max-width:600px){
+  .ac-review-hero-actions .ac-action-primary{
+    width:100% !important;
+    min-height:42px;
+    border-radius:11px !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE ADMIN BRAND — LARGER / CLEARER
+   Keep Lock position unchanged.
+   ========================================================= */
+
+@media (max-width:600px){
+
+  .ac-topbar{
+    min-height:58px;
+    height:58px;
+    padding:8px 10px;
+  }
+
+  .ac-brand{
+    flex:0 1 auto;
+    min-width:0;
+    gap:9px;
+    font-size:12px;
+    letter-spacing:.07em;
+  }
+
+  .ac-brand a{
+    font-size:12px;
+    color:#9a968f;
+    white-space:nowrap;
+  }
+
+  .ac-brand span{
+    font-size:11px;
+    color:#4b4843;
+  }
+
+  .ac-brand strong{
+    font-size:13px;
+    color:#f3efe8;
+    letter-spacing:.08em;
+    white-space:nowrap;
+  }
+
+  .ac-top-actions{
+    margin-left:auto;
+    flex:0 0 auto;
+  }
+
+  .ac-top-actions > button:last-child{
+    min-height:38px;
+    min-width:52px;
+    padding:8px 11px;
+    font-size:10px;
+  }
+}
+
+@media(max-width:390px){
+
+  .ac-topbar{
+    padding-left:8px;
+    padding-right:8px;
+  }
+
+  .ac-brand{
+    gap:7px;
+    font-size:11px;
+  }
+
+  .ac-brand a{
+    font-size:11px;
+  }
+
+  .ac-brand span{
+    font-size:10px;
+  }
+
+  .ac-brand strong{
+    font-size:12px;
+  }
+}
+

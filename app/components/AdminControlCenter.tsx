@@ -147,6 +147,57 @@ export default function AdminControlCenter({ gate }: { gate: string }) {
         {active === 'settings' && <Settings crawler={crawler} />}
       </section>
     </div>
+    <nav className="ac-mobile-nav" aria-label="Admin mobile navigation">
+      <button
+        className={`ac-mobile-nav-item ${active === 'overview' ? 'active' : ''}`}
+        onClick={() => setActive('overview')}
+        aria-label="Overview"
+        aria-pressed={active === 'overview'}
+      >
+        <span className="ac-mobile-nav-icon">⌂</span>
+        <span>Overview</span>
+      </button>
+
+      <button
+        className={`ac-mobile-nav-item ${active === 'crawler' ? 'active' : ''}`}
+        onClick={() => setActive('crawler')}
+        aria-label="Crawler"
+        aria-pressed={active === 'crawler'}
+      >
+        <span className="ac-mobile-nav-icon">↻</span>
+        <span>Crawler</span>
+      </button>
+
+      <button
+        className={`ac-mobile-nav-item ${active === 'review' ? 'active' : ''}`}
+        onClick={() => setActive('review')}
+        aria-label="Review"
+        aria-pressed={active === 'review'}
+      >
+        <span className="ac-mobile-nav-icon">✓</span>
+        <span>Review{num(counts?.review) ? ` · ${num(counts?.review)}` : ''}</span>
+      </button>
+
+      <button
+        className={`ac-mobile-nav-item ${active === 'activity' ? 'active' : ''}`}
+        onClick={() => setActive('activity')}
+        aria-label="Activity"
+        aria-pressed={active === 'activity'}
+      >
+        <span className="ac-mobile-nav-icon">≋</span>
+        <span>Activity</span>
+      </button>
+
+      <button
+        className="ac-mobile-nav-item"
+        onClick={() => setPalette(true)}
+        aria-label="More admin sections"
+      >
+        <span className="ac-mobile-nav-icon">☰</span>
+        <span>More</span>
+      </button>
+    </nav>
+
     {palette && <CommandPalette setActive={setActive} reviewUrl={reviewUrl} close={() => setPalette(false)} />}
   </main>;
 }

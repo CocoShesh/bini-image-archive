@@ -1935,3 +1935,190 @@ body {
     }
   }
 }
+
+/* =========================================================
+   MOBILE V4 — REAL MOBILE TOOLBAR
+   ========================================================= */
+
+@media (max-width: 760px) {
+  html,
+  body {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .archive-app {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .archive-app > .topbar,
+  .archive-app > .hero,
+  .archive-app > .toolbar,
+  .archive-app > .gallery-head,
+  .archive-app > .masonry-grid,
+  .archive-app > .load-state,
+  .archive-app > .footer {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* filters */
+  .toolbar {
+    padding: 14px 0 12px !important;
+    margin-top: 2px !important;
+  }
+
+  .toolbar-left {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .filter-row {
+    width: 100%;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    gap: 7px !important;
+    padding: 1px 0 7px !important;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filter-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-pill {
+    flex: 0 0 auto !important;
+    white-space: nowrap;
+    padding: 8px 11px !important;
+    font-size: 10px !important;
+  }
+
+  /* year + favorites */
+  .filter-extra-row {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    gap: 8px !important;
+    align-items: center !important;
+    margin-top: 8px !important;
+  }
+
+  .year-select-wrap {
+    width: 100% !important;
+    min-width: 0 !important;
+    display: grid !important;
+    grid-template-columns: auto minmax(0, 1fr) !important;
+    gap: 7px !important;
+    align-items: center !important;
+  }
+
+  .year-select {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    padding: 9px 10px !important;
+  }
+
+  .filter-extra-row .sort-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    padding: 9px 11px !important;
+  }
+
+  /* result count + sort */
+  .sort-wrap {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    margin-top: 10px !important;
+  }
+
+  .sort-wrap > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 10px !important;
+  }
+
+  .sort-wrap .sort-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    padding: 8px 10px !important;
+    font-size: 10px !important;
+  }
+
+  /* gallery heading */
+  .gallery-head {
+    margin-top: 16px !important;
+    margin-bottom: 14px !important;
+    align-items: end !important;
+  }
+
+  .gallery-head h2 {
+    font-size: 20px !important;
+    letter-spacing: -0.035em;
+  }
+
+  .result-count {
+    font-size: 10px !important;
+  }
+
+  /* mobile gallery */
+  .masonry-grid {
+    columns: 2 145px !important;
+    column-gap: 8px !important;
+  }
+
+  .image-card {
+    margin-bottom: 8px !important;
+  }
+
+  .image-frame {
+    border-radius: 12px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .archive-app {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .filter-extra-row {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    gap: 6px !important;
+  }
+
+  .year-select-wrap {
+    gap: 5px !important;
+  }
+
+  .year-select {
+    padding: 8px 8px !important;
+    font-size: 10px !important;
+  }
+
+  .filter-extra-row .sort-btn,
+  .sort-wrap .sort-btn {
+    padding: 8px 9px !important;
+    font-size: 9px !important;
+  }
+
+  .gallery-head h2 {
+    font-size: 19px !important;
+  }
+}
+
