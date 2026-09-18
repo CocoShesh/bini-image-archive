@@ -23,7 +23,7 @@ env:
   IMAGE_QUALITY: 90
   KEEP_LOCAL: false
   QUERY_DELAY: 0
-
+  MAX_RUN_MINUTES: 300
 jobs:
   prepare:
     name: Read R2 checkpoint

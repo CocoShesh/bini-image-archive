@@ -3,13 +3,17 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "npm run sync:r2 && next dev",
     "build": "next build",
-    "start": "next start",
-    "crawl:all": "node scripts/crawl-all.mjs"
+    "start": "npm run sync:r2 && next start",
+    "crawl:all": "node scripts/crawl-all.mjs",
+    "sync:r2": "node scripts/sync-r2-library.mjs",
+    "analyze:batch": "node scripts/analyze-library.mjs",
+    "analyze:force": "ANALYZE_FORCE=true node scripts/analyze-library.mjs"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.1131.0",
+    "@aws-sdk/client-s3": "^3.1132.0",
+    "dotenv": "^17.4.2",
     "next": "16.3.5",
     "playwright": "^1.55.0",
     "react": "19.1.0",

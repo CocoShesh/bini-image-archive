@@ -7,3 +7,11 @@ public/library/
 data/r2-migration-checkpoint.jsonnode_modules
 .next
 .DS_Store
+
+# Local/generated analyzer artifacts
+data/analysis/*
+!data/analysis/cpu-results.json
+!data/analysis/cpu-checkpoint.json
+
+# Local image cache (images are served from R2)
+public/library/
