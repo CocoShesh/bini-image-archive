@@ -1,0 +1,38 @@
+name: Bug report
+description: Report a reproducible problem in bini-image-archive
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: "Never attach R2 credentials, admin review keys, session secrets, private reports or exported moderation state. Redact private object URLs and reporter information."
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include the application entry point and smallest reproducible sequence.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser/OS, viewport if relevant, runtime version, and commit or deployment.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Sanitized logs or screenshots
+      description: Remove secrets and personal data. Include a failing request status when relevant.
